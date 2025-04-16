@@ -11,10 +11,14 @@ import { ModalContext } from "../providers/ModalProvider";
 
 import "./modal-container.scss";
 import { modalContextType } from "../types/modals";
+import MakePaymentModal from "../../payments/components/MakePaymentModal";
+import PaymentSuccessModal from "../../payments/components/PaymentSuccessModal";
 
 // register your modals here.
 const modalContent: Record<string, React.ComponentType> = {
     ExampleModalOne: () =>(<div className="p-4"><h1>Modal One</h1></div>),
+    MakePaymentModal,
+    PaymentSuccessModal
 };
 
 export default function ModalContainer() {

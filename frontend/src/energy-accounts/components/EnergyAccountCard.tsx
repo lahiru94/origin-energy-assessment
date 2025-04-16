@@ -1,8 +1,6 @@
-import "./energy-account-card.scss"
-import React from "react"
 import { EnergyAccount } from "../types/energy-acccount"
 import { useModal } from "../../common/hooks/modalHooks"
-
+import "./energy-account-card.scss"
 
 export interface EnergyAccountCardProps extends EnergyAccount { }
 
@@ -11,7 +9,7 @@ const EnergyAccountCard: React.FC<EnergyAccountCardProps> = ({ id, type, balance
     const { showModal } = useModal()
 
     const handlePaymentClickButton = () => {
-        showModal({modalType:"ExampleModalOne", modalProps:{}})
+        showModal({ modalType: "MakePaymentModal", modalProps: {} })
     }
 
     return (
