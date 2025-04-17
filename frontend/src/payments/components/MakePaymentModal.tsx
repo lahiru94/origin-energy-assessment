@@ -1,57 +1,71 @@
-import { useState } from 'react'
+
+import * as Yup from 'yup'
 import ModalLayout from '../../common/components/ModalLayout'
 import { useModal } from '../../common/hooks/modalHooks'
+import { makePayment } from '../services/paymentService'
+import Form from '../../common/components/Form'
+import SubmitButton from '../../common/components/SubmitButton'
+import PaymentAmountInput from './PaymentAmountInput'
+import CardDetailsInput from './CardDetailsInput'
+import { paymentDetailsFormData } from '../types/payments'
 
 interface MakePaymentModalProps {
+    accountId: string
 }
 
-const MakePaymentModal: React.FC<MakePaymentModalProps> = () => {
-    const [amount, setAmount] = useState('')
-    const [cardNumber, setCardNumber] = useState('')
-    const [cvv, setCvv] = useState('')
-    const [expiry, setExpiry] = useState('')
+const paymentSchema = Yup.object().shape({
+    amount: Yup.number()
+        .required('Amount is required')
+        .positive('Amount must be positive')
+        .typeError('Amount must be a number'),
+    cardNumber: Yup.string()
+        .required('Card number is required')
+        .matches(/^\d{16}$/, 'Card number must be 16 digits'),
+    cvv: Yup.string()
+        .required('CVV is required')
+        .matches(/^\d{3,4}$/, 'CVV must be 3 or 4 digits'),
+    expiry: Yup.string()
+        .required('Expiry date is required')
+        .matches(/^(0[1-9]|1[0-2])\/\d{2}$/, 'Expiry date must be in MM/YY format')
+})
+
+const MakePaymentModal: React.FC<MakePaymentModalProps> = ({ accountId }) => {
     const { showModal } = useModal()
- 
-    const handlePayment = () => {
-        showModal({modalType:"PaymentSuccessModal"})
+    const handlePayment = async (values: paymentDetailsFormData) => {
+        try {
+            await makePayment({
+                accountId,
+                ...values
+            })
+            showModal({ modalType: "PaymentSuccessModal" })
+        } catch (error) {
+            // Handle error
+        }
     }
 
     return (
         <ModalLayout title='Make a Payment'>
-            <div className="card-text">How much would you like to pay?</div>
-            <input
-                type="number"
-                placeholder="Amount"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-            />
-            <div className="card-text">How would you like to pay?</div>
-            <input
-                className='w-100'
-                type="text"
-                placeholder="Card Number"
-                value={cardNumber}
-                onChange={(e) => setCardNumber(e.target.value)}
-            />
-            <div className="d-flex justify-content-between">
-                <input
-                    className='mr-4 flex-grow-1'
-                    type="text"
-                    placeholder="CVV"
-                    value={cvv}
-                    onChange={(e) => setCvv(e.target.value)}
+            <Form
+                initialValues={{
+                    amount: null,
+                    cardNumber: "",
+                    cvv: "",
+                    expiry: ""
+                }}
+                validationSchema={paymentSchema}
+                enableReinitialize={false}
+                onSubmit={handlePayment}
+            >
+                <PaymentAmountInput
+                    name='amount'
+                    label='How much would you like to pay?'
+                    placeholder='amount'
                 />
-                <input
-                    className='flex-grow-1'
-                    type="text"
-                    placeholder="Expiry (MM/YY)"
-                    value={expiry}
-                    onChange={(e) => setExpiry(e.target.value)}
-                />
-            </div>
-            <div className="text-center mt-3">
-                <button className="btn btn-primary" onClick={handlePayment}>Pay</button>
-            </div>
+                <CardDetailsInput />
+                <div className='w-100 d-flex justify-content-center'>
+                    <SubmitButton text='Pay' />
+                </div>
+            </Form>
         </ModalLayout>
     )
 }

@@ -15,7 +15,7 @@ import MakePaymentModal from "../../payments/components/MakePaymentModal";
 import PaymentSuccessModal from "../../payments/components/PaymentSuccessModal";
 
 // register your modals here.
-const modalContent: Record<string, React.ComponentType> = {
+const modalContent: Record<string, React.ComponentType<any>> = {
     ExampleModalOne: () =>(<div className="p-4"><h1>Modal One</h1></div>),
     MakePaymentModal,
     PaymentSuccessModal
@@ -34,7 +34,7 @@ export default function ModalContainer() {
                 id="exampleModal"
                 tabIndex={-1}
                 aria-labelledby="exampleModalLabel"
-                aria-hidden="true"
+                key={modalType}
             >
                 <CurrModalComponent {...currModalProps} />
             </div>

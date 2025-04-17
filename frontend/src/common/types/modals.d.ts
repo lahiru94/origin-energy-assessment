@@ -1,7 +1,7 @@
 
 export type modalType = string
 export type modalTypes = modalType[]
-export type modalProps = Record<modalType, object | undefined>
+export type modalProps = Record<string, any>
 
 export type showModalParams = {
     modalType: modalType
