@@ -15,18 +15,19 @@ interface MakePaymentModalProps {
 
 const paymentSchema = Yup.object().shape({
     amount: Yup.number()
-        .required('Amount is required')
-        .positive('Amount must be positive')
-        .typeError('Amount must be a number'),
+        .max(100000, "maximum payment is $100,100") //setting a reasonable maximum
+        .required('required')
+        .positive('must be positive')
+        .typeError('must be a number'),
     cardNumber: Yup.string()
-        .required('Card number is required')
-        .matches(/^\d{16}$/, 'Card number must be 16 digits'),
+        .required('required')
+        .matches(/^(\d{4} ){3}\d{4}$/, 'must be 16 digits'), //validates the formatted card number here.
     cvv: Yup.string()
-        .required('CVV is required')
-        .matches(/^\d{3,4}$/, 'CVV must be 3 or 4 digits'),
+        .required('required')
+        .matches(/^\d{3,4}$/, 'must be 3 or 4 digits'),
     expiry: Yup.string()
-        .required('Expiry date is required')
-        .matches(/^(0[1-9]|1[0-2])\/\d{2}$/, 'Expiry date must be in MM/YY format')
+        .required('equired')
+        .matches(/^(0[1-9]|1[0-2])\/\d{2}$/, 'must be in MM/YY')
 })
 
 const MakePaymentModal: React.FC<MakePaymentModalProps> = ({ accountId }) => {

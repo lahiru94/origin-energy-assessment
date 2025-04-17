@@ -2,7 +2,7 @@
 
 ## Overview
 
-I focused exclusively on the frontend due to limited time. My priority was to build clean, maintainable, and reusable components—things that could scale well beyond this assessment (e.g., modal handling, form logic, API integration). These shared utilities are placed under the `common` module.
+I focused exclusively on the frontend due to limited time. My priority was to build clean, maintainable, and reusable components—things that could scale well beyond this assessment (e.g., centralised modal handling, form logic, API handlers). These shared utilities are placed under the `common` module.
 
 ### Code Structure
 
