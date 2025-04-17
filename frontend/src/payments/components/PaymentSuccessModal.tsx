@@ -9,7 +9,7 @@ const PaymentSuccessModal: React.FC<PaymentSuccessModalProps> = () => {
     const {hideAllModals} = useModal()
 
     return(
-        <ModalLayout title='Payment Success'>
+        <ModalLayout title='Payment Success' hideCloseButton={true}>
             <div>Your payment was successful!</div>
             <div className='w-100 d-flex justify-content-center mt-4'>
                 <button className='btn btn-primary' onClick={()=>{hideAllModals()}}>Close</button>

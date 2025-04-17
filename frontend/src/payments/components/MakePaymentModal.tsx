@@ -33,14 +33,19 @@ const paymentSchema = Yup.object().shape({
 const MakePaymentModal: React.FC<MakePaymentModalProps> = ({ accountId }) => {
     const { showModal } = useModal()
     const handlePayment = async (values: paymentDetailsFormData) => {
+        const formattedCardNumber = values.cardNumber.replace(/\s+/g, '');
         try {
             await makePayment({
                 accountId,
-                ...values
+                amount: values.amount,
+                cardNumber: formattedCardNumber,
+                cvv: values.cvv,
+                expiry: values.expiry
             })
             showModal({ modalType: "PaymentSuccessModal" })
         } catch (error) {
             // Handle error
+            // TODO: Show an error modal here
         }
     }
 
