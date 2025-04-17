@@ -61,8 +61,10 @@ const MakePaymentModal: React.FC<MakePaymentModalProps> = ({ accountId }) => {
                     label='How much would you like to pay?'
                     placeholder='amount'
                 />
-                <CardDetailsInput />
-                <div className='w-100 d-flex justify-content-center'>
+                <div className='mt-4'>
+                    <CardDetailsInput />
+                </div>
+                <div className='w-100 d-flex justify-content-center mt-3'>
                     <SubmitButton text='Pay' />
                 </div>
             </Form>

@@ -10,7 +10,7 @@ const EnergyAccountCard: React.FC<EnergyAccountCardProps> = ({ id, type, balance
     const { showModal } = useModal()
 
     const getBalanceClassName = (balance: number): string => {
-        return balance > 0 ? 'text-success' : balance < 0 ? 'text-danger' : 'text-secondary'
+        return 'fw-semibold ' +  (balance > 0 ? 'text-success' : balance < 0 ? 'text-danger' : 'text-secondary')
     }
 
     const handlePaymentClickButton = () => {
@@ -18,7 +18,7 @@ const EnergyAccountCard: React.FC<EnergyAccountCardProps> = ({ id, type, balance
     }
 
     return (
-        <div className="card shadow p-4">
+        <div className="energy-account-card card shadow p-4">
             <div className="d-flex align-items-start gap-3">
 
                 <div className="d-flex justify-content-center align-items-center my-1" style={{ width: 100 }}>
