@@ -3,7 +3,7 @@ import { useModal } from '../../common/hooks/modalHooks';
 interface ModalLayoutProps {
     title: string
     children: React.ReactNode,
-    hideCloseButton: boolean
+    hideCloseButton?: boolean
 }
 
 const ModalLayout: React.FC<ModalLayoutProps> = ({ title, children, hideCloseButton }) => {
